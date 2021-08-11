@@ -2,7 +2,8 @@
 
 clc; clear; close all;
 
-%% Matrix DFT and IDFT
+% --------------- DFT and IDFT Methods ---------------
+%% Matrix DFT
 x_n = [1, 2, 3]; % Input signal
 
 N = length(x_n);
@@ -15,7 +16,7 @@ Wk = exp(-2 * pi * nk * 1i / N); % Twiddle factor
 Xn = Wk * x_n'; % Output signal
 disp(Xn);
 
-% IDFT
+% Matrix IDFT
 X_k = Wk * x_n';
 xn_idft = (1 / N) * conj(Wk) * X_k;
 disp(xn_idft);
@@ -23,20 +24,19 @@ disp(xn_idft);
 %% DFT using for loop
 x_n = [1, 2, 3, 4]; % Input signal
 N = length(x_n);
+X_k = zeros(N, 1);
 
 for k = 0:N - 1
-    x_k = 0;
 
     for n = 0:N - 1
-        x_k = x_n(n + 1) * exp(-2 * pi * n * k * 1i / N) + x_k;
+        X_k(k + 1, 1) = X_k(k + 1, 1) + x_n(n + 1) * exp(-2 * pi * n * k * 1i / N);
     end
 
-    X_k(k + 1, 1) = x_k;
 end
 
 disp(X_k);
 
-%% Linear and curcular convolution | NOTE: don't use built-in function in exam
+%% Linear and curcular convolution
 x_n = [1, 2, 3, 4];
 h_n = [1, -1, 1];
 
@@ -56,7 +56,8 @@ y_circular = cconv(x_n, h_n, length(x_n) + length(h_n) - 1);
 disp(y_linear);
 disp(y_circular);
 
-%% Homework #2: Birthday DFT
+% --------------- Assignment ---------------
+%% Question 1: DFT of Birthday with mag and phase plot
 x_n = [0, 4, 0, 6]; % Input signal
 N = length(x_n);
 X_k = zeros(1, N);
