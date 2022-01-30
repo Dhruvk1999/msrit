@@ -43,7 +43,7 @@ elseif faultType == 2
     Ia2_pu = - 1 * Ia1_pu;
     Ia0_pu = 0;
     
-    Va1_pu = 1 - Ia1_pu * Z1;
+    Va1_pu = Ea - Ia1_pu * Z1;
     Va2_pu = Va1_pu;
     Va0_pu = 0; % neutral is grounded
     
@@ -76,13 +76,13 @@ Vbc_pu = Vb_pu - Vc_pu;
 Vca_pu = Vc_pu - Va_pu;
 
 % Conversion from p.u. to normal current
-base = P / (sqrt(3) * I);
+base = I / sqrt(3);
 Ia = Ia_pu * base;
 Ib = Ib_pu * base;
 Ic = Ic_pu * base;
 
 % Conversion from p.u. to normal voltage
-base = I / sqrt(3);
+base = P / (sqrt(3) * I);
 Vab = Vab_pu * base;
 Vbc = Vbc_pu * base;
 Vca = Vca_pu * base;
